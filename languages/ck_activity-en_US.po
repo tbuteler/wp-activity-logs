@@ -1,0 +1,335 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Cookspin Activity Logs\n"
+"POT-Creation-Date: 2013-03-23 10:57-0300\n"
+"PO-Revision-Date: 2013-03-23 10:57-0300\n"
+"Last-Translator: Tomas Buteler <tbuteler@gmail.com>\n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: __;_e;_x;_ex;_n:1,2\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../functions.php:272
+msgid "Today"
+msgstr ""
+
+#: ../functions.php:303
+#, php-format
+msgid "User #%s"
+msgstr ""
+
+#: ../functions.php:360
+msgid "Sites"
+msgstr ""
+
+#: ../functions.php:361
+msgid "Posts"
+msgstr ""
+
+#: ../functions.php:362
+msgid "Media"
+msgstr ""
+
+#: ../functions.php:363
+msgid "Users"
+msgstr ""
+
+#: ../functions.php:364
+msgid "Settings"
+msgstr ""
+
+#: ../functions.php:365
+msgid "Comments"
+msgstr ""
+
+#: ../functions.php:366
+msgid "Appearance"
+msgstr ""
+
+#: ../functions.php:455
+msgid "No activity to display"
+msgstr ""
+
+#: ../functions.php:526
+msgid "Filter activity logs"
+msgstr ""
+
+#: ../functions.php:537
+msgid "Review activity of another network site:"
+msgstr ""
+
+#: ../functions.php:539
+msgid "Site ID"
+msgstr ""
+
+#: ../functions.php:545
+msgid "Logs to fetch at a time"
+msgstr ""
+
+#: ../functions.php:547
+msgid "Logs"
+msgstr ""
+
+#: ../functions.php:581
+msgid "Site activity"
+msgstr ""
+
+#: ../functions.php:600
+#, php-format
+msgid "Site activity: %1$s (%2$s)"
+msgstr ""
+
+#: ../functions.php:600
+msgid "Network activity"
+msgstr ""
+
+#: ../functions.php:605
+msgid "The submitted ID does not correspond to a blog in this network."
+msgstr ""
+
+#: ../loggers.php:234
+#, php-format
+msgid "user #%s"
+msgstr ""
+
+#: ../loggers.php:256 ../loggers.php:260
+#, php-format
+msgid "an untitled %s"
+msgstr ""
+
+#: ../loggers.php:259
+msgid "Post"
+msgstr ""
+
+#: ../loggers.php:300
+#, php-format
+msgid "created a new site: %s"
+msgstr ""
+
+#: ../loggers.php:323
+#, php-format
+msgid "deleted the site: %s"
+msgstr ""
+
+#: ../loggers.php:391
+#, php-format
+msgid "published %s."
+msgstr ""
+
+#: ../loggers.php:392
+#, php-format
+msgid "modified %s."
+msgstr ""
+
+#: ../loggers.php:393
+#, php-format
+msgid "created a new draft called %s."
+msgstr ""
+
+#: ../loggers.php:394
+#, php-format
+msgid "created %s, pending review."
+msgstr ""
+
+#: ../loggers.php:395
+#, php-format
+msgid "restored %s from the trash."
+msgstr ""
+
+#: ../loggers.php:396
+#, php-format
+msgid "saved %s as draft."
+msgstr ""
+
+#: ../loggers.php:397
+#, php-format
+msgid "saved %s as pending review."
+msgstr ""
+
+#: ../loggers.php:398
+#, php-format
+msgid "scheduled %1$s to be published on %2$s."
+msgstr ""
+
+#: ../loggers.php:398
+#, php-format
+msgid "scheduled %1$s for future publication."
+msgstr ""
+
+#: ../loggers.php:399
+#, php-format
+msgid "deleted %s."
+msgstr ""
+
+#: ../loggers.php:400
+#, php-format
+msgid "marked %s as private."
+msgstr ""
+
+#: ../loggers.php:401
+#, php-format
+msgid "saved a new revision of %s."
+msgstr ""
+
+#: ../loggers.php:426
+#, php-format
+msgid "created a new network user: %s"
+msgstr ""
+
+#: ../loggers.php:441
+#, php-format
+msgid "permanently removed %s from the network."
+msgstr ""
+
+#: ../loggers.php:478
+#, php-format
+msgid "added %s to a site in the network."
+msgstr ""
+
+#: ../loggers.php:483
+#, php-format
+msgid "added %1$s to %2$s."
+msgstr ""
+
+#: ../loggers.php:486
+#, php-format
+msgid "added %s to this site."
+msgstr ""
+
+#: ../loggers.php:508
+#, php-format
+msgid "updated %s's profile."
+msgstr ""
+
+#: ../loggers.php:530
+msgid "updated his/her profile."
+msgstr ""
+
+#: ../loggers.php:561
+#, php-format
+msgid "removed %s from a site in the network."
+msgstr ""
+
+#: ../loggers.php:566
+#, php-format
+msgid "removed %1$s from %2$s."
+msgstr ""
+
+#: ../loggers.php:569
+#, php-format
+msgid "removed %s from this site."
+msgstr ""
+
+#: ../loggers.php:582
+#, php-format
+msgid "updated this site's <a href=\"%s\">General</a> settings"
+msgstr ""
+
+#: ../loggers.php:583
+#, php-format
+msgid "updated this site's <a href=\"%s\">Media</a> settings"
+msgstr ""
+
+#: ../loggers.php:584
+#, php-format
+msgid "updated this site's <a href=\"%s\">Presentation</a> settings"
+msgstr ""
+
+#: ../loggers.php:585
+#, php-format
+msgid "updated this site's <a href=\"%s\">Writing</a> settings"
+msgstr ""
+
+#: ../loggers.php:586
+#, php-format
+msgid "updated this site's <a href=\"%s\">Discussion</a> settings"
+msgstr ""
+
+#: ../loggers.php:594
+msgid "updated this site's settings"
+msgstr ""
+
+#: ../loggers.php:617
+#, php-format
+msgid "an %s"
+msgstr ""
+
+#: ../loggers.php:617
+msgid "image"
+msgstr ""
+
+#: ../loggers.php:617
+#, php-format
+msgid "the image #%s"
+msgstr ""
+
+#: ../loggers.php:620
+#, php-format
+msgid "added %s."
+msgstr ""
+
+#: ../loggers.php:623
+#, php-format
+msgid "edited %s."
+msgstr ""
+
+#: ../loggers.php:626
+#, php-format
+msgid "removed %s."
+msgstr ""
+
+#: ../loggers.php:631
+msgid "added media to the site."
+msgstr ""
+
+#: ../loggers.php:634
+msgid "removed media from the site."
+msgstr ""
+
+#: ../loggers.php:637
+msgid "edited media from this site."
+msgstr ""
+
+#: ../loggers.php:685
+msgid "edited a comment."
+msgstr ""
+
+#: ../loggers.php:686
+msgid "approved a comment."
+msgstr ""
+
+#: ../loggers.php:687
+msgid "marked a comment as unapproved."
+msgstr ""
+
+#: ../loggers.php:688
+msgid "restored a comment from the trash."
+msgstr ""
+
+#: ../loggers.php:689
+msgid "marked a comment as not spam."
+msgstr ""
+
+#: ../loggers.php:690
+msgid "marked a comment as spam."
+msgstr ""
+
+#: ../loggers.php:691
+msgid "sent a comment to the trash."
+msgstr ""
+
+#: ../loggers.php:707
+#, php-format
+msgid "added a new comment to %s"
+msgstr ""
+
+#: ../loggers.php:719
+msgid "modified the theme's widgets settings."
+msgstr ""
