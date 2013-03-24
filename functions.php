@@ -420,6 +420,9 @@ function cookspin_log_output_activity($args) {
 	}
 	
 	$query = "SELECT * FROM " . $prefix . 'activity_log logs WHERE 1=1';
+
+	$query .= apply_filters('cookspin_pre_log_query', '');
+	
 	if($context == 'profile' || !current_user_can('delete_others_posts')) { # Check for Editor privileges
 		$query .= " AND logs.user_id = $current_user->ID";
 	}
