@@ -14,7 +14,7 @@ Text Domain: ck_activity
 */
 
 define('CK_LOG_VERSION', '1.1');
-define('CK_LOG_DB_VERSION', '1.1');
+define('CK_LOG_DB_VERSION', '1.2');
 
 # Include default loggers
 include_once('loggers.php');
@@ -38,7 +38,7 @@ function cookspin_log_install($blog_id = false) {
 		  user_id bigint(20) unsigned NOT NULL,
 		  time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 		  logger varchar(255) default NULL,
-		  object_id bigint(20) unsigned NOT NULL,
+		  object_id varchar(255) NOT NULL,
 		  object_type varchar(20) default NULL,
 		  log_code bigint(20) unsigned NOT NULL,
 		  logmeta LONGTEXT default NULL,
@@ -211,14 +211,25 @@ class CK_Logger {
 			$this->purge($table_name, (CK_LOG_MAX_ROWS - 1)); # -1 to make room for the new entry
 		}
 		
-		$wpdb->insert($table_name, array(
-			'logger' => $this->name,
-			'user_id' => $user_id,
-			'time' => $time,
-			'object_id' => $object_id,
-			'object_type' => $object_type,
-			'log_code' => $log_code,
-			'logmeta' => maybe_serialize($logmeta)
+		$wpdb->insert(
+			$table_name,
+			array(
+				'logger' => $this->name,
+				'user_id' => $user_id,
+				'time' => $time,
+				'object_id' => $object_id,
+				'object_type' => $object_type,
+				'log_code' => $log_code,
+				'logmeta' => maybe_serialize($logmeta)
+			),
+			array(
+				'%s',
+				'%d',
+				'%s',
+				'%s',
+				'%s',
+				'%d',
+				'%s'
 			)
 		);
 	}
@@ -233,7 +244,8 @@ class CK_Logger {
 	function add_log() {
 		$cb_params = func_get_args();
 		# Logger callback is expected to be an array of args (or an array of arrays in case of multiple insertions)
-		$insert = call_user_func_array($this->cb, $cb_params);
+		$insert = apply_filters("cookspin_log_add_log_{$this->name}", call_user_func_array($this->cb, $cb_params));
+		do_action('cookspin_log_add_log', $insert, $this->name, $this->category);
 		if($insert && sizeof($insert) > 0) {
 			foreach($insert as $args) {
 				$this->insert_row($args);		
@@ -243,10 +255,15 @@ class CK_Logger {
 	
 	function print_log($log, $previous_log = false, $wrap = false, $context = 'profile') {
 		if(function_exists($this->print_cb)) {
-			# If logs are closer together than what we're set to ignore, check object_id, object_type and logger
+			# If logs are closer together than what we're set to ignore, check similarities between logs
 			if($previous_log && (date('U', strtotime($previous_log->time) - date('U', strtotime($log->time)))) < CK_LOG_TIME_IGNORE) {
 				# If key parameters are the same, assume user corrected his actions; no need to log twice
-				if($previous_log->logger == $log->logger && $previous_log->object_type == $log->object_type && $previous_log->object_id == $log->object_id && $previous_log->log_code == $log->log_code) {
+				if(
+					$previous_log->logger == $log->logger
+					&& $previous_log->object_type == $log->object_type
+					&& $previous_log->object_id == $log->object_id
+					&& $previous_log->log_code == $log->log_code
+				) {
 					return $log;				
 				}
 			}

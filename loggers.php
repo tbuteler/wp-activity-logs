@@ -168,7 +168,36 @@ function cookspin_register_default_loggers() {
 			'print_cb' => 'cookspin_log_print_comment_add'
 		)
 	);
-	
+
+	# Log theme changes
+	cookspin_register_logger('theme_switched', 'appearance',
+		array(
+			'hook' => 'switch_theme',
+			'n_params' => 2,
+			'cb' => 'cookspin_log_theme_switched_callback',
+			'print_cb' => 'cookspin_log_print_theme_switched'
+		)
+	);
+
+	# Log theme modifications
+	$theme = get_option('stylesheet');
+	cookspin_register_logger('theme_mods_changed', 'appearance',
+		array(
+			'hook' => 'update_option_theme_mods_' . $theme,
+			'n_params' => 2,
+			'cb' => 'cookspin_log_theme_modified_callback',
+			'print_cb' => 'cookspin_log_print_theme_modified'
+		)
+	);
+
+	cookspin_register_logger('theme_options_changed', 'appearance',
+		array(
+			'hook' => 'update_option_' . $theme . '_theme_options',
+			'n_params' => 2,
+			'cb' => 'cookspin_log_theme_modified_callback',
+			'print_cb' => 'cookspin_log_print_theme_modified'
+		)
+	);
 	
 	# Log widget changes / reordering
 	global $pagenow;
@@ -381,6 +410,7 @@ function cookspin_log_posts_transitions_callback($new_status, $old_status, $post
 		);
 		return $log;
 	}
+	return false;
 }
 
 function cookspin_log_print_posts_transitions($log, $user) {
@@ -717,6 +747,45 @@ function cookspin_log_widgets_updated_callback($blog_id) {
 
 function cookspin_log_print_widgets_updated($log, $user) {
 	return __('modified the theme\'s widgets settings.', 'ck_activity');
+}
+
+function cookspin_log_theme_switched_callback($theme_name, $theme) {
+	$log[] = array(
+		'object_id' => $theme->stylesheet,
+		'object_type' => 'theme',
+		'logmeta' => array('theme_name' => $theme_name)
+	);
+	return $log;
+}
+
+function cookspin_log_print_theme_switched($log, $user) {
+	$theme = '<a href="' . admin_url('themes.php') . '">' . $log->logmeta['theme_name'] . '</a>';
+	return sprintf(__('switched the site\'s theme to %s.', 'ck_activity'), $theme);
+}
+
+function cookspin_log_theme_modified_callback($oldvalue, $_newvalue) {
+	
+	# Avoid duplicate logging of the same action (since we're listening to theme_mods and theme_options modifications)
+	# Don't update this if switching between themes without using customizer -- options are updated in order for WP to remember theme settings,
+	# not because a user actually modified them
+	if(defined('CK_LOG_MODIFIED_THEME') || (isset($_GET['action']) && $_GET['action'] == 'activate')) {
+		return false;
+	}
+	
+	define('CK_LOG_MODIFIED_THEME', true);
+	
+	$theme = wp_get_theme(get_option('stylesheet'));
+	$log[] = array(
+		'object_id' => $theme->stylesheet,
+		'object_type' => 'theme',
+		'logmeta' => array('theme_name' => $theme->get('Name'))
+	);
+	return $log;	
+}
+
+function cookspin_log_print_theme_modified($log, $user) {
+	$theme = '<a href="' . admin_url('themes.php') . '">' . $log->logmeta['theme_name'] . '</a>';
+	return sprintf(__('customized theme %s.', 'ck_activity'), $theme);	
 }
 
 ?>
