@@ -212,6 +212,74 @@ function cookspin_register_default_loggers() {
 		)
 	);
 
+	# Log nav menu changes
+	
+	# When doing post transitions for a 'nav_menu_item' post type, abort and trigger a custom hook 
+	# TO DO: some nav menu changes will still appear as theme customization -- we must fix this somehow, though hooks are scarce
+	add_filter('cookspin_log_add_log_posts_transitions', 'cookspin_redirect_log_to_navmenu');
+	function cookspin_redirect_log_to_navmenu($insert) {
+		if(!is_array($insert)) {
+			return $insert;
+		}
+		$log = reset($insert);
+		if($log['object_type'] == 'nav_menu_item') {
+			do_action('cookspin_log_navmenu_transitions', array($log));
+			return false;
+		}
+		return $insert;
+	}
+
+	cookspin_register_logger('navmenu_transitions', 'appearance',
+		array(
+			'hook' => 'cookspin_log_navmenu_transitions',
+			'cb' => 'cookspin_log_navmenu_transitions_callback',
+			'print_cb' => 'cookspin_log_print_navmenu_transitions'
+		)
+	);
+
+	# Log plugin activation
+	cookspin_register_logger('plugin_activated', 'plugins',
+		array(
+			'hook' => 'activated_plugin',
+			'n_params' => 2,
+			'cb' => 'cookspin_log_plugin_transition_callback',
+			'print_cb' => 'cookspin_log_print_plugin_activated'
+		)
+	);
+
+	# Log plugin deactivation
+	cookspin_register_logger('plugin_deactivated', 'plugins',
+		array(
+			'hook' => 'deactivated_plugin',
+			'n_params' => 2,
+			'cb' => 'cookspin_log_plugin_transition_callback',
+			'print_cb' => 'cookspin_log_print_plugin_deactivated'
+		)
+	);
+
+	# Log export requests
+	# Note: in order to log the actual arguments used in the export procedure, we must first fetch them using a filter that runs prior to
+	# the action we're attaching the logger to
+	add_filter('export_args', create_function('$args', 'global $ck_log_export_args; $ck_log_export_args = $args; return $args;'));
+	cookspin_register_logger('export', 'tools',
+		array(
+			'hook' => 'export_wp',
+			'cb' => 'cookspin_log_export_callback',
+			'print_cb' => 'cookspin_log_print_export'
+		)
+	);
+
+	# Log import requests
+	# TO DO: add importers other than default WP? More descriptive logs? How?
+	if(defined('WP_LOAD_IMPORTERS')) {
+		cookspin_register_logger('import', 'tools',
+			array(
+				'hook' => 'import_end',
+				'cb' => 'cookspin_log_import_callback',
+				'print_cb' => 'cookspin_log_print_import'
+			)
+		);
+	}
 }
 
 # Supporting hooks
@@ -785,7 +853,63 @@ function cookspin_log_theme_modified_callback($oldvalue, $_newvalue) {
 
 function cookspin_log_print_theme_modified($log, $user) {
 	$theme = '<a href="' . admin_url('themes.php') . '">' . $log->logmeta['theme_name'] . '</a>';
-	return sprintf(__('customized theme %s.', 'ck_activity'), $theme);	
+	return sprintf(__('customized theme %s.', 'ck_activity'), $theme);
+}
+
+# Since this hook is a hack, the log already comes ready to go -- we just needed to log it with the proper logger
+function cookspin_log_navmenu_transitions_callback($log) {
+	return $log;
+}
+
+function cookspin_log_print_navmenu_transitions($log, $user) {
+	return __('modified the site\'s navigation menu(s).', 'ck_activity');
+}
+
+function cookspin_log_plugin_transition_callback($plugin, $network_wide) {
+	$data = get_plugin_data(plugin_dir_path(dirname(__FILE__)) . $plugin);
+	$log[] = array(
+		'object_id' => $plugin,
+		'object_type' => 'plugin',
+		'logmeta' => array('plugin_name' => $data['Name'])
+	);
+	return $log;
+}
+
+function cookspin_log_print_plugin_activated($log, $user) {
+	$plugin = '<a href="' . admin_url('plugins.php') . '">' . $log->logmeta['plugin_name'] . '</a>';
+	return sprintf(__('activated plugin %s.', 'ck_activity'), $plugin);
+}
+
+function cookspin_log_print_plugin_deactivated($log, $user) {
+	$plugin = '<a href="' . admin_url('plugins.php') . '">' . $log->logmeta['plugin_name'] . '</a>';
+	return sprintf(__('deactivated plugin %s.', 'ck_activity'), $plugin);
+}
+
+function cookspin_log_export_callback() {
+	global $ck_log_export_args;
+	$log[] = array(
+		'object_id' => $GLOBALS['blog_id'],
+		'object_type' => 'export',
+		'logmeta' => $ck_log_export_args
+	);
+	return $log;
+}
+
+# TO DO: output export args? Maybe via tooltip or something?
+function cookspin_log_print_export($log, $user) {
+	return __('exported this site\'s data.', 'ck_activity');
+}
+
+function cookspin_log_import_callback() {
+	$log[] = array(
+		'object_id' => $GLOBALS['blog_id'],
+		'object_type' => 'import'
+	);
+	return $log;	
+}
+
+function cookspin_log_print_import($log, $user) {
+	return __('imported data into this site.', 'ck_activity');
 }
 
 ?>

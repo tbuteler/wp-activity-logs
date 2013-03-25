@@ -5,6 +5,7 @@
 .activity_log {
 	overflow: hidden;
 
+<<<<<<< HEAD
 	// Title (only used on profile)
 	#activity_header {
 		text-shadow: -1px 1px 0 #ffffff;
@@ -17,6 +18,10 @@
 		box-shadow: 0 2px 0 rgba(136, 136, 136, 0.7);
 		padding: 7px 7px 10px 10px;
 		margin: 2px 0 0;
+=======
+	ul {
+		margin: 0;
+>>>>>>> master
 	}
 
 	.empty_activity {
@@ -38,7 +43,11 @@
 			padding-top: 0;
 		}
 	
+<<<<<<< HEAD
 		.first {
+=======
+		&.first {
+>>>>>>> master
 			margin-top: 0;
 		}
 	}
@@ -47,7 +56,12 @@
 		font-size: 11px;
 		border-top: 1px solid #e1e1e1;
 		padding-left: 6px;
+<<<<<<< HEAD
 		padding-top: 4px;	
+=======
+		padding-top: 4px;
+		clear: both;
+>>>>>>> master
 	
 		.log_item_time {
 			color: #999;
@@ -66,6 +80,7 @@
 	
 		// Icons' common styles
 		.log_item_icon {
+<<<<<<< HEAD
 			float: left;
 			display: block;
 			width: 18px;
@@ -95,11 +110,37 @@
 		
 		&.log_category_blogs .log_item_icon {
 			background-position: -366px -39px;
+=======
+			display: block;
+			position: relative;
+			top: -6px;
+			width: 22px;
+			height: 28px;
+			margin-right: 10px;
+			overflow: hidden;
+			float: left;
+			background-size: 400px 74px;
+			background-image: url('../../../../wp-admin/images/menu-2x.png');
+			background-repeat: no-repeat;
+		}
+
+		&.log_category_appearance .log_item_icon {
+			background-position: -2px -39px;
+		}
+
+		&.log_category_comments .log_item_icon {
+			background-position: -34px -39px;
+		}
+
+		&.log_category_media .log_item_icon {
+			background-position: -127px -39px;
+>>>>>>> master
 		}
 		
 		&.log_category_posts.log_type_page .log_item_icon {
 			background-position: -156px -39px;
 		}
+<<<<<<< HEAD
 		
 		&.log_category_comments .log_item_icon {
 			background-position: -36px -39px;
@@ -115,5 +156,87 @@
 		margin-top: 12px;
 		text-align: center;
 		min-width: 20px;
+=======
+
+		&.log_category_plugins .log_item_icon {
+			background-position: -186px -39px;
+		}
+
+		&.log_category_tools .log_item_icon {
+			background-position: -218px -39px;
+		}
+
+		&.log_category_preferences .log_item_icon {
+			background-position: -248px -39px;
+		}
+		
+		&.log_category_posts .log_item_icon {
+			background-position: -278px -39px;
+		}
+		
+		&.log_category_users .log_item_icon {
+			background-position: -312px -39px;
+		}
+		
+		&.log_category_blogs .log_item_icon {
+			background-position: -373px -39px;
+		}
+	}
+
+	#logs_footer {
+		margin-top: 14px;
+	}
+	
+	#load_more_logs {
+		margin-bottom: 1px;
+		text-align: center;
+		width: 37px;
+		height: 28px;
+
+		&.loading {
+			background: url('../../../../wp-admin/images/wpspin_light.gif');
+			background-repeat: no-repeat;
+			background-position: center center;
+			text-indent: -9999px;
+		}
+	}
+}
+
+// Blue admin color scheme
+.admin-color-classic {
+
+	.activity_log {
+
+		.log_item {
+
+			.log_item_icon {
+				background-image: url('../../../../wp-admin/images/menu-vs-2x.png');
+			}
+		}
+	}
+}
+
+// Hidden AJAX submission elements
+#last_log,
+#log_wrap_tag,
+#log_fetch_blog,
+#more_logs_nonce,
+#log_active_filters {
+	display: none;
+}
+
+// Filter styles
+#cookspin_blog_activity {
+
+	.activity_filter_check {
+		display: inline-block;
+		padding: 6px 0;
+		margin-right: 14px;
+	}
+	
+	h5 {
+		margin: 8px 0;
+		font-size: 13px;
+>>>>>>> master
 	}
 }

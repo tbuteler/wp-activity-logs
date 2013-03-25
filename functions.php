@@ -4,7 +4,7 @@
 
 Plugin Name: Cookspin Activity Logs
 Description: Logs and displays the activity of your WordPress blog. Easy to setup and extensible.
-Version: 1.0
+Version: 0.9
 Author: Cookspin
 Author URI: http://cookspin.com
 License: GPLv2
@@ -32,20 +32,21 @@ function cookspin_log_install($blog_id = false) {
 		global $wpdb;
 		$suffix = $blog_id ? ($blog_id == 1 ? '' : $wpdb->escape($blog_id) . '_') : '';
 		$table_name = $wpdb->base_prefix . $suffix . 'activity_log';
+		$charset_collate = $wpdb->get_charset_collate();
 		
 		$sql = "CREATE TABLE $table_name (
 	  	  log_id bigint(20) unsigned NOT NULL auto_increment,
 		  user_id bigint(20) unsigned NOT NULL,
 		  time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 		  logger varchar(255) default NULL,
-		  object_id varchar(255) NOT NULL,
+		  object_id varchar(255) default '' NOT NULL,
 		  object_type varchar(20) default NULL,
 		  log_code bigint(20) unsigned NOT NULL,
 		  logmeta LONGTEXT default NULL,
 		  PRIMARY KEY  (log_id),
 		  KEY user_id (user_id)
-		) DEFAULT CHARACTER SET $wpdb->charset COLLATE $wpdb->collate;";
-	
+		) $charset_collate;";
+
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
 		
@@ -263,6 +264,7 @@ class CK_Logger {
 					&& $previous_log->object_type == $log->object_type
 					&& $previous_log->object_id == $log->object_id
 					&& $previous_log->log_code == $log->log_code
+					&& $previous_log->user_id == $log->user_id
 				) {
 					return $log;				
 				}
@@ -352,6 +354,8 @@ function cookspin_get_log_categories() {
 	if(!current_user_can('edit_theme_options')) {
 		unset($categories['preferences']);
 		unset($categories['appearance']);
+		unset($categories['plugins']);
+		unset($categories['tools']);
 	}
 
 	if(!current_user_can('upload_files')) {
@@ -381,6 +385,8 @@ function cookspin_get_log_categories_labels() {
 		'preferences' 	=> __('Settings', 'ck_activity'),			
 		'comments' 		=> __('Comments', 'ck_activity'),
 		'appearance' 	=> __('Appearance', 'ck_activity'),
+		'plugins'	 	=> __('Plugins', 'ck_activity'),
+		'tools'	 		=> __('Tools', 'ck_activity')
 	);
 	
 	return apply_filters('cookspin_get_log_categories_labels', $default_labels);
@@ -476,16 +482,16 @@ function cookspin_log_output_activity($args) {
 	}
 	
 	if($wrap && $limit && sizeof($logs) == $limit) { ?>
-		<span class="logs_footer">
-			<span class="ui_button load_more_logs">. . .</span>
-			<span class="hide last_log"><?php $last_log = end($logs); echo($last_log->log_id); ?></span>
-			<span class="hide log_wrap_tag"><?php echo($wrap); ?></span>
-			<span class="hide log_active_filters"><?php echo($filter ? $filter : ''); ?></span>
-			<span class="hide more_logs_nonce"><?php echo(wp_create_nonce('more_logs_nonce')); ?></span>
+		<div id="logs_footer">
+			<a id="load_more_logs" class="ui_button button">. . .</a>
+			<span id="last_log"><?php $last_log = end($logs); echo($last_log->log_id); ?></span>
+			<span id="log_wrap_tag"><?php echo($wrap); ?></span>
+			<span id="log_active_filters"><?php echo($filter ? $filter : ''); ?></span>
+			<span id="more_logs_nonce"><?php echo(wp_create_nonce('more_logs_nonce')); ?></span>
 			<?php if(is_super_admin() && isset($_REQUEST['activity_blog_id']) && is_numeric($_REQUEST['activity_blog_id'])) : ?>
-			<span class="hide log_fetch_blog"><?php echo($_REQUEST['activity_blog_id']); ?></span>
+			<span id="log_fetch_blog"><?php echo($_REQUEST['activity_blog_id']); ?></span>
 			<?php endif; ?>
-		</span>
+		</div>
 	<?php
 	}
 }
@@ -521,8 +527,8 @@ function cookspin_blog_activity_widget() {
 function cookspin_blog_activity_widget_control() {
 
 	$active_filters = array();
-	if(isset($_REQUEST['activity_log_filter'])) {
-		$active_filters = explode(',', $_REQUEST['activity_log_filter']);
+	if(isset($_GET['activity_log_filter'])) {
+		$active_filters = explode(',', $_GET['activity_log_filter']);
 	}
 
 	global $current_user;
@@ -548,8 +554,10 @@ function cookspin_blog_activity_widget_control() {
 	foreach(cookspin_get_log_categories() as $category => $loggers) {
 		$checked = in_array($category, $active_filters) || sizeof($active_filters) == 0 ? 'checked="checked"' : '';
 		$output .= '
+		<div class="activity_filter_check">
 			<input id="' . esc_attr($category) . '_input" type="checkbox" name="activity_log_filter[]" value="' . esc_attr($category) . '" ' . $checked. '/>
-			<label for="' . esc_attr($category) . '_input">' . cookspin_get_log_category_label($category) . '</label>';
+			<label for="' . esc_attr($category) . '_input">' . cookspin_get_log_category_label($category) . '</label>
+		</div>';
 	}
 
 	if(is_network_admin()) {
