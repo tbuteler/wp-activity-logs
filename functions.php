@@ -111,7 +111,8 @@ class CK_Logger {
 			'n_params'			=> 1,
 			'cb'					=> false,
 			'print_cb'			=> false,
-			'hook_to_filter'	=> false
+			'hook_to_filter'	=> false,
+			'ignore_cmp'		=> array()
 		);
 
 		$args = wp_parse_args($args, $defaults);
@@ -125,6 +126,7 @@ class CK_Logger {
 		$this->cb 					= $cb;
 		$this->print_cb 			= $print_cb;
 		$this->hook_to_filter	= $hook_to_filter;
+		$this->ignore_cmp			= (array) $ignore_cmp;
 
 		$this->register();
 	}
@@ -138,7 +140,7 @@ class CK_Logger {
 
 		# Add to global array of loggers
 		global $cookspin_loggers;
-		$cookspin_loggers[$this->name] = $this;		
+		$cookspin_loggers[$this->name] = $this;
 	}
 
 	function init() {
@@ -147,6 +149,29 @@ class CK_Logger {
 			return;
 		}
 		add_action($this->hook, array(&$this, 'add_log'), $this->priority, $this->n_params);
+	}
+
+	function deregister() {
+
+		global $cookspin_loggers;
+		if(!isset($cookspin_loggers[$this->name])) {
+			return false;
+		}
+
+		if(did_action('cookspin_activity_log_init')) {
+			if($this->hook_to_filter) {
+				remove_filter($this->hook, array(&$this, 'hook_to_filter'), $this->priority);
+			}
+			else {
+				remove_action($this->hook, array(&$this, 'add_log'), $this->priority);
+			}
+		}
+		else {
+			remove_action('cookspin_activity_log_init', array(&$this, 'init'));
+		}
+		
+		unset($cookspin_loggers[$this->name]);
+		return true;
 	}
 
 	function countrows($table_name) {
@@ -245,7 +270,7 @@ class CK_Logger {
 	function add_log() {
 		$cb_params = func_get_args();
 		# Logger callback is expected to be an array of args (or an array of arrays in case of multiple insertions)
-		$insert = apply_filters("cookspin_log_add_log_{$this->name}", call_user_func_array($this->cb, $cb_params));
+		$insert = apply_filters("cookspin_log_add_log_{$this->name}", call_user_func_array($this->cb, $cb_params), $this->name);
 		do_action('cookspin_log_add_log', $insert, $this->name, $this->category);
 		if($insert && sizeof($insert) > 0) {
 			foreach($insert as $args) {
@@ -259,12 +284,14 @@ class CK_Logger {
 			# If logs are closer together than what we're set to ignore, check similarities between logs
 			if($previous_log && (date('U', strtotime($previous_log->time) - date('U', strtotime($log->time)))) < CK_LOG_TIME_IGNORE) {
 				# If key parameters are the same, assume user corrected his actions; no need to log twice
+				# Note: users can override each check (besides the logger), as long as they pass the 'ignore_cmp' argument when registering
+				# the logger (as a string, or array of strings, which correspond(s) to the class property to be ignored)
 				if(
 					$previous_log->logger == $log->logger
-					&& $previous_log->object_type == $log->object_type
-					&& $previous_log->object_id == $log->object_id
-					&& $previous_log->log_code == $log->log_code
-					&& $previous_log->user_id == $log->user_id
+					&& ($previous_log->object_type == $log->object_type || in_array('object_type', $this->ignore_cmp))
+					&& ($previous_log->object_id == $log->object_id || in_array('object_id', $this->ignore_cmp))
+					&& ($previous_log->log_code == $log->log_code || in_array('log_code', $this->ignore_cmp))
+					&& ($previous_log->user_id == $log->user_id || in_array('user_id', $this->ignore_cmp))
 				) {
 					return $log;				
 				}
@@ -338,6 +365,14 @@ function cookspin_register_logger($name, $category, $args) {
 	$logger = new CK_Logger($name, $category, $args);
 	global $cookspin_loggers;
 	return isset($cookspin_loggers[$name]);
+}
+
+function cookspin_deregister_logger($name) {
+	global $cookspin_loggers;
+	if(isset($cookspin_loggers[$name])) {
+		return $cookspin_loggers[$name]->deregister();
+	}
+	return false;
 }
 
 function cookspin_get_log_categories() {

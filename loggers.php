@@ -232,8 +232,10 @@ function cookspin_register_default_loggers() {
 	cookspin_register_logger('navmenu_transitions', 'appearance',
 		array(
 			'hook' => 'cookspin_log_navmenu_transitions',
-			'cb' => 'cookspin_log_navmenu_transitions_callback',
-			'print_cb' => 'cookspin_log_print_navmenu_transitions'
+			'cb' => '_cookspin_return_log',
+			'print_cb' => 'cookspin_log_print_navmenu_transitions',
+			# Due to the nature of this logger and its hook, ignore both object id and log codes when outputting changes to nav menu
+			'ignore_cmp' => array('object_id', 'log_code')
 		)
 	);
 
@@ -270,16 +272,13 @@ function cookspin_register_default_loggers() {
 	);
 
 	# Log import requests
-	# TO DO: add importers other than default WP? More descriptive logs? How?
-	if(defined('WP_LOAD_IMPORTERS')) {
-		cookspin_register_logger('import', 'tools',
-			array(
-				'hook' => 'import_end',
-				'cb' => 'cookspin_log_import_callback',
-				'print_cb' => 'cookspin_log_print_import'
-			)
-		);
-	}
+	cookspin_register_logger('import', 'tools',
+		array(
+			'hook' => 'import_end',
+			'cb' => 'cookspin_log_import_callback',
+			'print_cb' => 'cookspin_log_print_import'
+		)
+	);
 }
 
 # Supporting hooks
@@ -302,6 +301,15 @@ function add_widget_log_action() {
 	if($pagenow == 'admin-ajax.php' && $_REQUEST['action'] == 'widgets-order') {
 		do_action('cookspin_widgets_updated', $GLOBALS['blog_id']); # Due to lack of hooks, this log requires JS to run
 	}
+}
+
+# Disable logging of post, comment and media creation when doing imports
+add_action('import_start', 'cookspin_deregister_loggers_for_imports');
+function cookspin_deregister_loggers_for_imports() {
+	cookspin_deregister_logger('posts_transitions');
+	cookspin_deregister_logger('update_attachment');
+	cookspin_deregister_logger('add_attachment');
+	cookspin_deregister_logger('comment_add');	
 }
 
 # Supporting functions
@@ -364,8 +372,12 @@ function cookspin_post_title_on_log($log) {
 	return $title;
 }
 
-# Callbacks and references
+# For hacky logs, the log array already comes ready to go -- we just needed to log it with the proper logger
+function _cookspin_return_log($log) {
+	return $log;
+}
 
+# Callbacks and references
 
 # New blog
 
@@ -513,7 +525,7 @@ function cookspin_log_user_create_callback($user_id) {
 	$user = get_userdata($user_id);
 	$log[] = array(
 		'object_id' => $user_id,
-		'object_type' => 'user',
+		'object_type' => apply_filters('cookspin_log_user_object_type', 'user', $user),
 		'logmeta' => array('username' => $user->user_login),
 		'log_to_main' => true		
 	);
@@ -528,7 +540,7 @@ function cookspin_log_user_delete_callback($user_id) {
 	$user = get_userdata($user_id);
 	$log[] = array(
 		'object_id' => $user_id,
-		'object_type' => 'user',
+		'object_type' => apply_filters('cookspin_log_user_object_type', 'user', $user),
 		'logmeta' => array('username' => $user->user_login),
 		'log_to_main' => true		
 	);
@@ -555,7 +567,7 @@ function cookspin_log_user_add_to_blog_callback($user_id, $role, $blog_id) {
 	$user = get_userdata($user_id);
 	$log[] = array(
 		'object_id' => $user_id,
-		'object_type' => 'user',
+		'object_type' => apply_filters('cookspin_log_user_object_type', 'user', $user),
 		'logmeta' => array('username' => $user->user_login)
 	);
 	# Log to main site
@@ -590,7 +602,7 @@ function cookspin_log_user_edit_callback($user_id) {
 	$user = get_userdata($user_id);
 	$log[] = array(
 		'object_id' => $user_id,
-		'object_type' => 'user',
+		'object_type' => apply_filters('cookspin_log_user_object_type', 'user', $user),
 		'logmeta' => array('username' => $user->user_login)
 	);
 	$log[] = array(
@@ -612,12 +624,12 @@ function cookspin_log_update_profile_callback($user_id) {
 	$user = get_userdata($user_id);
 	$log[] = array(
 		'object_id' => $user_id,
-		'object_type' => 'user',
+		'object_type' => apply_filters('cookspin_log_user_object_type', 'user', $user),
 		'logmeta' => array('username' => $user->user_login)
 	);
 	$log[] = array(
 		'object_id' => $user_id,
-		'object_type' => 'user',
+		'object_type' => apply_filters('cookspin_log_user_object_type', 'user', $user),
 		'logmeta' => array('username' => $user->user_login),
 		'log_to_main' => true
 	);
@@ -834,7 +846,7 @@ function cookspin_log_print_theme_switched($log, $user) {
 function cookspin_log_theme_modified_callback($oldvalue, $_newvalue) {
 	
 	# Avoid duplicate logging of the same action (since we're listening to theme_mods and theme_options modifications)
-	# Don't update this if switching between themes without using customizer -- options are updated in order for WP to remember theme settings,
+	# Don't update this if switching between themes without using customizer -- options are updated so that WP remembers theme settings,
 	# not because a user actually modified them
 	if(defined('CK_LOG_MODIFIED_THEME') || (isset($_GET['action']) && $_GET['action'] == 'activate')) {
 		return false;
@@ -848,17 +860,12 @@ function cookspin_log_theme_modified_callback($oldvalue, $_newvalue) {
 		'object_type' => 'theme',
 		'logmeta' => array('theme_name' => $theme->get('Name'))
 	);
-	return $log;	
+	return $log;
 }
 
 function cookspin_log_print_theme_modified($log, $user) {
 	$theme = '<a href="' . admin_url('themes.php') . '">' . $log->logmeta['theme_name'] . '</a>';
 	return sprintf(__('customized theme %s.', 'ck_activity'), $theme);
-}
-
-# Since this hook is a hack, the log already comes ready to go -- we just needed to log it with the proper logger
-function cookspin_log_navmenu_transitions_callback($log) {
-	return $log;
 }
 
 function cookspin_log_print_navmenu_transitions($log, $user) {
