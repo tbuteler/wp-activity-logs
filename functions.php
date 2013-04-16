@@ -676,7 +676,7 @@ function cookspin_activity_log_loader() {
 
 	global $pagenow;
 	$activity_pages = apply_filters('cookspin_activity_log_pages', array('index.php'));
-	if(in_array($pagenow, $activity_pages)) {
+	if(is_admin() && in_array($pagenow, $activity_pages)) {
 		wp_enqueue_style('ck_activity');
 		wp_enqueue_script('ck_activity');
 		wp_localize_script('ck_activity', 'ck_activity', array(
