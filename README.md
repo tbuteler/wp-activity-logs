@@ -1,6 +1,12 @@
 Cookspin Activity Logs
 ======================
 
+A WordPress plugin which logs and displays relevant activity within your blog or network.
+
+
+Installation
+------------------------
+
 1. Unpackage contents to wp-content/plugins/ck_activity_logs
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. That's it! The plugin will configure itself on first run.
@@ -23,7 +29,7 @@ Maximum number of rows reserved for activity logs in custom table:
 	// 0 means no limit
 	define('CK_LOG_MAX_ROWS', 0);
 
-Logs to load on dashboard at a time:
+Amount of logs to load on dashboard widget at a time:
 
 	define('CK_LOG_DEFAULT_LIMIT', 25);
 	
@@ -52,13 +58,13 @@ Here are the default categories (and slugs) for loggers. These are meant to mimi
 
 The third and final argument of the function is actually an array of arguments. Let's go through the options one by one. (Note that omitting "required" arguments might not cause the function to fail, but will prevent the log from displaying properly.)
 
-`hook` (string)(required): Which action should we hook to? Every time it fires, our log will record an entry. **Important:** If you're hooking to filters and not actions, set the `hook_to_filter` argument to `true`
-`priority` (integer)(optional): Priority of the logger function compared to all other functions hooked to this action.
-`n_params` (integer)(optional): How many arguments does the logger function need from the action? If more than one, this has to be specified.
-`cb` (string)(required): The actual callback which will define what information gets recorded on the database.
-`print_cb` (string)(required): A callback which is used to generate a readable version of the log.
-`hook_to_filter` (boolean)(optional): Do you want to log something everytime a *filter* is applied? You can do that too, but you **need to set this to true**. Failure to do so will prevent the filter you're hooking to from working properly, and can break stuff.
-`ignore_cmp` (string or array of strings)(optional): Sometimes ignoring logs based on the time they were recorded is not enough to prevent you from showing actions which have no actual impact. Here you can specify any of the following, which correspond to the activity log's table columns: 'object_type', 'object_id', 'log_code', 'user_id'.
+1. `hook` (string)(required): Which action should we hook to? Every time it fires, our log will record an entry. **Important:** If you're hooking to filters and not actions, set the `hook_to_filter` argument to `true`
+2. `priority` (integer)(optional): Priority of the logger function compared to all other functions hooked to this action.
+3. `n_params` (integer)(optional): How many arguments does the logger function need from the action? If more than one, this has to be specified.
+4. `cb` (string)(required): The actual callback which will define what information gets recorded on the database.
+5. `print_cb` (string)(required): A callback which is used to generate a readable version of the log.
+6. `hook_to_filter` (boolean)(optional): Do you want to log something everytime a *filter* is applied? You can do that too, but you **need to set this to true**. Failure to do so will prevent the filter you're hooking to from working properly, and can break stuff.
+7. `ignore_cmp` (string or array of strings)(optional): Sometimes ignoring logs based on the time they were recorded is not enough to prevent you from showing actions which have no actual impact. Here you can specify any of the following, which correspond to the activity log's table columns: 'object_type', 'object_id', 'log_code', 'user_id'.
 
 
 Feedback and Support
