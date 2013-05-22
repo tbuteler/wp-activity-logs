@@ -79,11 +79,6 @@ function cookspin_log_setup() {
 	if(!defined('CK_LOG_DEFAULT_LIMIT')) {
 		define('CK_LOG_DEFAULT_LIMIT', 25); # 25 rows are fetched at a time
 	}
-
-	# Define uninstall preference
-	if(!defined('CK_LOG_FULL_UNINSTALL')) {
-		define('CK_LOG_FULL_UNINSTALL', false); # False means tables and logs will persist on deactivation
-	}
 }
 
 function cookspin_log_uninstall($blog_id = false) {
