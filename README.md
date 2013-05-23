@@ -1,17 +1,11 @@
-=== Activity Logs ===
-
-Contributors: tbuteler
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5H36WT4G7XBKQ
-Tags: activity
-Requires at least: 3.0.1
-Tested up to: 3.5
-Stable tag: 1.1
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Activity Logs
+=============
 
 A WordPress plugin which logs and displays relevant activity within your blog or network.
 
-== Description ==
+
+Description
+------------------------
 
 The Activity Logs plugin will record most of the changes that occur in your WordPress blog or multisite network, making it easy for you to keep on track of what everyone is doing, or to catch up on what happened since you last checked in.
 
@@ -19,17 +13,19 @@ It's a very simple to use plugin (though it offers good extensibility to advance
 
 The Activity Logs plugin keeps track of post, pages, custom post types and comments transitions, settings changes, plugin activations, import, export, user and site management in a simple, seamless way.
 
-== Installation ==
+
+Installation
+------------------------
 
 1. Unpackage contents to wp-content/plugins/ck_activity_logs
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. That's it! The plugin will configure itself on first run.
 
-== Frequently Asked Questions ==
 
-= I don't see a settings page for this plugin. Can I configure it somehow? =
+Additional configuration
+------------------------
 
-A little bit, yes. Although the idea is to allow users to install and forget, admins have some configuration options available. To do so, define the constants below in your `wp-config.php` file (or anywhere else, as long as they're defined before the `init` action takes place).
+Although the idea is to allow users to install and forget, admins have some configuration options available. To do so, define the constants below in your `wp-config.php` file (or anywhere else, as long as they're defined before the `init` action takes place).
 
 Values defined here are the plugins defaults, which can be overriden.
 
@@ -48,9 +44,10 @@ Amount of logs to load on dashboard widget at a time:
 	define('CK_LOG_DEFAULT_LIMIT', 25);
 	
 
-= Can I create my own loggers? =
+Adding your own loggers
+-----------------------
 
-Yes. There are many filters and actions to hook into, but the default loggers take into account core functionality only. This includes custom post types, but not custom functionality which most plugins add to WordPress. Luckily, you can easily set your own loggers by using the following function:
+There are many filters and actions to hook into, but the default loggers take into account core functionality only. This includes custom post types, but not custom functionality which most plugins add to WordPress. Luckily, you can easily set your own loggers by using the following function:
 
 	cookspin_register_logger(
 		$name,		// A slug-like name for this logger, shorter than 255 characters
@@ -79,16 +76,9 @@ The third and final argument of the function is actually an array of arguments. 
 6. `hook_to_filter` (boolean)(optional): Do you want to log something everytime a *filter* is applied? You can do that too, but you **need to set this to true**. Failure to do so will prevent the filter you're hooking to from working properly, and can break stuff.
 7. `ignore_cmp` (string or array of strings)(optional): Sometimes ignoring logs based on the time they were recorded is not enough to prevent you from showing actions which have no actual impact. Here you can specify any of the following, which correspond to the activity log's table columns: 'object_type', 'object_id', 'log_code', 'user_id'.
 
-== Screenshots ==
 
-1. The Activity Log widget rendered on the default dashboard.
-
-== Changelog ==
-
-= 1.1 =
-* Initial public release.
-
-== Feedback and Support ==
+Feedback and Support
+-----------------------
 
 Comments are welcome. You can contact me directly via tbuteler@gmail.com.
 
