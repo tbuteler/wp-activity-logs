@@ -587,7 +587,7 @@ function cookspin_log_user_add_to_blog_callback($user_id, $role, $blog_id) {
 	$details = get_blog_details($blog_id);
 	$log[] = array(
 		'object_id' => $user_id,
-		'object_type' => 'user',
+		'object_type' => apply_filters('cookspin_log_user_object_type', 'user', $user),
 		'logmeta' => array('username' => $user->user_login, 'blog_id' => $blog_id, 'title' => $details->blogname),
 		'log_to_main' => true
 	);

@@ -213,14 +213,16 @@ class CK_Logger {
 		}
 		
 		# Only allow certain loggers to add logs to the main site
-		if(!in_array($this->name, array(
+		$loggers_log_to_main = array(
 			'delete_blog',
 			'user_create',
 			'user_add_to_blog',
 			'user_edit',
 			'update_profile',
 			'remove_user'
-			))) {
+		);
+		
+		if(!in_array($this->name, apply_filters('cookspin_loggers_log_to_main', $loggers_log_to_main))) {
 			$log_to_main = false;
 		}
 		

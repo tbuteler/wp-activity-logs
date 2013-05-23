@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Cookspin Activity Logs\n"
-"POT-Creation-Date: 2013-03-28 12:08-0300\n"
-"PO-Revision-Date: 2013-03-28 12:08-0300\n"
+"POT-Creation-Date: 2013-05-23 11:49-0300\n"
+"PO-Revision-Date: 2013-05-23 11:49-0300\n"
 "Last-Translator: Tomas Buteler <tbuteler@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -16,362 +16,362 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../functions.php:291
+#: ../functions.php:313
 msgid "Today"
 msgstr "Hoje"
 
-#: ../functions.php:322
+#: ../functions.php:344
 #, php-format
 msgid "User #%s"
 msgstr "Usuário #%s"
 
-#: ../functions.php:381
+#: ../functions.php:411
 msgid "Sites"
 msgstr "Sites"
 
-#: ../functions.php:382
+#: ../functions.php:412
 msgid "Posts"
 msgstr "Posts"
 
-#: ../functions.php:383
+#: ../functions.php:413
 msgid "Media"
 msgstr "Mídia"
 
-#: ../functions.php:384
+#: ../functions.php:414
 msgid "Users"
 msgstr "Usuários"
 
-#: ../functions.php:385
+#: ../functions.php:415
 msgid "Settings"
 msgstr "Configurações"
 
-#: ../functions.php:386
+#: ../functions.php:416
 msgid "Comments"
 msgstr "Comentários"
 
-#: ../functions.php:387
+#: ../functions.php:417
 msgid "Appearance"
 msgstr "Apresentação"
 
-#: ../functions.php:388
+#: ../functions.php:418
 msgid "Plugins"
 msgstr "Plugins"
 
-#: ../functions.php:389
+#: ../functions.php:419
 msgid "Tools"
 msgstr "Ferramentas"
 
-#: ../functions.php:481
+#: ../functions.php:511
 msgid "No activity to display"
 msgstr "Nenhuma atividade disponível no período"
 
-#: ../functions.php:552
+#: ../functions.php:582
 msgid "Filter activity logs"
 msgstr "Filtrar registros de atividade"
 
-#: ../functions.php:565
+#: ../functions.php:595
 msgid "Review activity of another network site:"
 msgstr "Revisar a atividade de outro site da rede:"
 
-#: ../functions.php:567
+#: ../functions.php:597
 msgid "Site ID"
 msgstr "Código do site"
 
-#: ../functions.php:573
+#: ../functions.php:603
 msgid "Logs to fetch at a time"
 msgstr "Registros a retornar por consulta"
 
-#: ../functions.php:575
+#: ../functions.php:605
 msgid "Logs"
 msgstr "Registros"
 
-#: ../functions.php:609
+#: ../functions.php:639
 msgid "Site activity"
 msgstr "Atividade do site"
 
-#: ../functions.php:628
+#: ../functions.php:658
 #, php-format
 msgid "Site activity: %1$s (%2$s)"
 msgstr "Atividade do site: %1$s (%2$s)"
 
-#: ../functions.php:628
+#: ../functions.php:658
 msgid "Network activity"
 msgstr "Atividade da rede"
 
-#: ../functions.php:633
+#: ../functions.php:663
 msgid "The submitted ID does not correspond to a blog in this network."
 msgstr "O código fornecido não corresponde a nenhum site desta rede."
 
-#: ../loggers.php:331
+#: ../loggers.php:339
 #, php-format
 msgid "user #%s"
 msgstr "usuário #%s"
 
-#: ../loggers.php:353 ../loggers.php:357
+#: ../loggers.php:361 ../loggers.php:365
 #, php-format
 msgid "an untitled %s"
 msgstr "um(a) %s sem título"
 
-#: ../loggers.php:356
+#: ../loggers.php:364
 msgid "Post"
 msgstr "Post"
 
-#: ../loggers.php:401
+#: ../loggers.php:409
 #, php-format
 msgid "created a new site: %s"
 msgstr "criou um novo site: %s"
 
-#: ../loggers.php:424
+#: ../loggers.php:432
 #, php-format
 msgid "deleted the site: %s"
 msgstr "apagou o site: %s"
 
-#: ../loggers.php:493
+#: ../loggers.php:514
 #, php-format
 msgid "published %s."
 msgstr "publicou %s."
 
-#: ../loggers.php:494
+#: ../loggers.php:515
 #, php-format
 msgid "modified %s."
 msgstr "modificou %s."
 
-#: ../loggers.php:495
+#: ../loggers.php:516
 #, php-format
 msgid "created a new draft called %s."
 msgstr "criou um novo rascunho chamado %s"
 
-#: ../loggers.php:496
+#: ../loggers.php:517
 #, php-format
 msgid "created %s, pending review."
 msgstr "criou %s, aguardando revisão."
 
-#: ../loggers.php:497
+#: ../loggers.php:518
 #, php-format
 msgid "restored %s from the trash."
 msgstr "recuperou %s da lixeira."
 
-#: ../loggers.php:498
+#: ../loggers.php:519
 #, php-format
 msgid "saved %s as draft."
 msgstr "salvou %s como rascunho."
 
-#: ../loggers.php:499
+#: ../loggers.php:520
 #, php-format
 msgid "saved %s as pending review."
 msgstr "enviou %s para revisão."
 
-#: ../loggers.php:500
+#: ../loggers.php:521
 #, php-format
 msgid "scheduled %1$s to be published on %2$s."
 msgstr "agendou %1$s para publicação em %2$s."
 
-#: ../loggers.php:500
+#: ../loggers.php:521
 #, php-format
 msgid "scheduled %1$s for future publication."
 msgstr "agendou %1$s para publicação futura."
 
-#: ../loggers.php:501
+#: ../loggers.php:522
 #, php-format
 msgid "deleted %s."
 msgstr "apagou %s."
 
-#: ../loggers.php:502
+#: ../loggers.php:523
 #, php-format
 msgid "marked %s as private."
 msgstr "marcou %s como privado."
 
-#: ../loggers.php:503
+#: ../loggers.php:524
 #, php-format
 msgid "saved a new revision of %s."
 msgstr "salvou uma nova revisão de %s."
 
-#: ../loggers.php:528
+#: ../loggers.php:549
 #, php-format
 msgid "created a new network user: %s"
 msgstr "criou um novo usuário na rede: %s"
 
-#: ../loggers.php:543
+#: ../loggers.php:564
 #, php-format
 msgid "permanently removed %s from the network."
 msgstr "removeu %s permanentemente da rede."
 
-#: ../loggers.php:580
+#: ../loggers.php:601
 #, php-format
 msgid "added %s to a site in the network."
 msgstr "adicionou %s a um site da rede."
 
-#: ../loggers.php:585
+#: ../loggers.php:606
 #, php-format
 msgid "added %1$s to %2$s."
 msgstr "adicionou %1$s ao site %2$s."
 
-#: ../loggers.php:588
+#: ../loggers.php:609
 #, php-format
 msgid "added %s to this site."
 msgstr "adicionou %s a este site."
 
-#: ../loggers.php:610
+#: ../loggers.php:631
 #, php-format
 msgid "updated %s's profile."
 msgstr "atualizou o perfil de %s."
 
-#: ../loggers.php:632
+#: ../loggers.php:653
 msgid "updated his/her profile."
 msgstr "atualizou seu perfil."
 
-#: ../loggers.php:663
+#: ../loggers.php:684
 #, php-format
 msgid "removed %s from a site in the network."
 msgstr "removeu %s de um site da rede."
 
-#: ../loggers.php:668
+#: ../loggers.php:689
 #, php-format
 msgid "removed %1$s from %2$s."
 msgstr "removeu %1$s do site %2$s."
 
-#: ../loggers.php:671
+#: ../loggers.php:692
 #, php-format
 msgid "removed %s from this site."
 msgstr "removeu %s deste site."
 
-#: ../loggers.php:684
+#: ../loggers.php:705
 #, php-format
 msgid "updated this site's <a href=\"%s\">General</a> settings"
 msgstr "atualizou as configurações <a href=\"%s\">Gerais</a> deste site."
 
-#: ../loggers.php:685
+#: ../loggers.php:706
 #, php-format
 msgid "updated this site's <a href=\"%s\">Media</a> settings"
 msgstr "atualizou as configurações de <a href=\"%s\">Mídia</a> deste site."
 
-#: ../loggers.php:686
+#: ../loggers.php:707
 #, php-format
 msgid "updated this site's <a href=\"%s\">Presentation</a> settings"
 msgstr ""
 "atualizou as configurações de <a href=\"%s\">Apresentação</a> deste site."
 
-#: ../loggers.php:687
+#: ../loggers.php:708
 #, php-format
 msgid "updated this site's <a href=\"%s\">Writing</a> settings"
 msgstr "atualizou as configurações de <a href=\"%s\">Escrita</a> deste site."
 
-#: ../loggers.php:688
+#: ../loggers.php:709
 #, php-format
 msgid "updated this site's <a href=\"%s\">Discussion</a> settings"
 msgstr "atualizou as configurações de <a href=\"%s\">Discussão</a> deste site."
 
-#: ../loggers.php:696
+#: ../loggers.php:717
 msgid "updated this site's settings"
 msgstr "atualizou as configurações deste site."
 
-#: ../loggers.php:719
+#: ../loggers.php:740
 #, php-format
 msgid "an %s"
 msgstr "uma %s"
 
-#: ../loggers.php:719
+#: ../loggers.php:740
 msgid "image"
 msgstr "imagem"
 
-#: ../loggers.php:719
+#: ../loggers.php:740
 #, php-format
 msgid "the image #%s"
 msgstr "a imagem #%s"
 
-#: ../loggers.php:722
+#: ../loggers.php:743
 #, php-format
 msgid "added %s."
 msgstr "adicionou %s."
 
-#: ../loggers.php:725
+#: ../loggers.php:746
 #, php-format
 msgid "edited %s."
 msgstr "editou %s."
 
-#: ../loggers.php:728
+#: ../loggers.php:749
 #, php-format
 msgid "removed %s."
 msgstr "removeu %s."
 
-#: ../loggers.php:733
+#: ../loggers.php:754
 msgid "added media to the site."
 msgstr "adicionou mídia a este site."
 
-#: ../loggers.php:736
+#: ../loggers.php:757
 msgid "removed media from the site."
 msgstr "removeu mídia deste site."
 
-#: ../loggers.php:739
+#: ../loggers.php:760
 msgid "edited media from this site."
 msgstr "editou mídia deste site."
 
-#: ../loggers.php:787
+#: ../loggers.php:808
 msgid "edited a comment."
 msgstr "editou um comentário."
 
-#: ../loggers.php:788
+#: ../loggers.php:809
 msgid "approved a comment."
 msgstr "aprovou um comentário."
 
-#: ../loggers.php:789
+#: ../loggers.php:810
 msgid "marked a comment as unapproved."
 msgstr "marcou um comentário como não aprovado."
 
-#: ../loggers.php:790
+#: ../loggers.php:811
 msgid "restored a comment from the trash."
 msgstr "recuperou um comentário da lixeira."
 
-#: ../loggers.php:791
+#: ../loggers.php:812
 msgid "marked a comment as not spam."
 msgstr "marcou um comentário como não spam."
 
-#: ../loggers.php:792
+#: ../loggers.php:813
 msgid "marked a comment as spam."
 msgstr "marcou um comentário como spam."
 
-#: ../loggers.php:793
+#: ../loggers.php:814
 msgid "sent a comment to the trash."
 msgstr "enviou um comentário para a lixeira."
 
-#: ../loggers.php:809
+#: ../loggers.php:830
 #, php-format
 msgid "added a new comment to %s"
 msgstr "adicionou um novo comentário em %s."
 
-#: ../loggers.php:821
+#: ../loggers.php:842
 msgid "modified the theme's widgets settings."
 msgstr "modificou as opções de widgets do tema."
 
-#: ../loggers.php:835
+#: ../loggers.php:856
 #, php-format
 msgid "switched the site's theme to %s."
 msgstr "alterou o tema do site para %s."
 
-#: ../loggers.php:860
+#: ../loggers.php:881
 #, php-format
 msgid "customized theme %s."
 msgstr "personalizou o tema %s."
 
-#: ../loggers.php:864
+#: ../loggers.php:885
 msgid "modified the site's navigation menu(s)."
 msgstr "modificou o(s) menu(s) de navegação do site."
 
-#: ../loggers.php:879
+#: ../loggers.php:900
 #, php-format
 msgid "activated plugin %s."
 msgstr "ativou o plugin %s."
 
-#: ../loggers.php:884
+#: ../loggers.php:905
 #, php-format
 msgid "deactivated plugin %s."
 msgstr "desativou o plugin %s."
 
-#: ../loggers.php:899
+#: ../loggers.php:920
 msgid "exported this site's data."
 msgstr "exportou os dados deste site."
 
-#: ../loggers.php:911
+#: ../loggers.php:932
 msgid "imported data into this site."
 msgstr "Importou dados a este site."
 
