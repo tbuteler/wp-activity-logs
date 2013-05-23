@@ -1,4 +1,4 @@
-Cookspin Activity Logs
+Activity Logs
 ======================
 
 A WordPress plugin which logs and displays relevant activity within your blog or network.
@@ -74,11 +74,4 @@ Comments are welcome. You can contact me directly via tbuteler@gmail.com.
 
 If you think you've found a bug, or you feel like you can make this plugin better, go to [GitHub](https://github.com/tbuteler/ck_activity_logs).
 
-Found this helpful? Did it save you precious programming time? Please consider making a donation:
-
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="5H36WT4G7XBKQ">
-<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
-</form>
+Found this helpful? Did it save you precious programming time? Please consider making a [donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5H36WT4G7XBKQ).

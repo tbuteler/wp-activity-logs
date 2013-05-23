@@ -436,11 +436,21 @@ function cookspin_log_print_delete_blog($log, $user) {
 
 function cookspin_log_posts_transitions_callback($new_status, $old_status, $post) {
 	$log_code = false;
-	if($old_status == $new_status) {
-		$log_code = 2; # Modified
+
+	global $original_status;
+
+	# Ignore auto-saves, or transitions from auto-saves (WP always triggers transition to work with afterwards)
+	if(in_array('auto-draft', array($new_status, $old_status))) {
+		return false;
 	}
-	elseif($old_status != $new_status) {
-		if($old_status == 'new' || $old_status == 'auto-draft') {
+	
+	if($old_status != $new_status || $original_status == 'new') {
+		if($old_status == 'new') {
+			# WP will transition twice when creating new posts (regardless of new status), so we'll flag it and leave it for the next run
+			$original_status = 'new';
+			return false;
+		}
+		elseif($original_status == 'new' && !in_array('trash', array($new_status, $old_status))) {
 			if($new_status == 'draft') {
 				$log_code = 3; # Created a new draft / Created archived version
 			}
@@ -449,7 +459,7 @@ function cookspin_log_posts_transitions_callback($new_status, $old_status, $post
 			}
 			elseif($new_status == 'publish') {
 				$log_code = 1; # Published
-			}			
+			}
 		}
 		elseif($old_status == 'trash') {
 			$log_code = 5; # Restored from trash
@@ -478,6 +488,9 @@ function cookspin_log_posts_transitions_callback($new_status, $old_status, $post
 			}
 		}
 	}
+	elseif($old_status == $new_status) {
+		$log_code = 2; # Modified
+	}	
 
 	$log_code = apply_filters('cookspin_log_post_transitions_log_code', $log_code, $new_status, $old_status, $post);
 	

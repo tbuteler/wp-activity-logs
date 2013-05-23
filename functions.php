@@ -2,10 +2,10 @@
 
 /*
 
-Plugin Name: Cookspin Activity Logs
-Description: Logs and displays the activity of your WordPress blog. Easy to setup and extensible.
-Version: 0.9
-Author: Cookspin
+Plugin Name: Activity Logs
+Description: Logs and displays the activity of your WordPress blog or network. Easy to setup and extensible.
+Version: 1.1
+Author: Tomas Buteler
 Author URI: http://cookspin.com
 License: GPLv2
 
@@ -278,7 +278,7 @@ class CK_Logger {
 		if(function_exists($this->print_cb)) {
 			# If logs are closer together than what we're set to ignore, check similarities between logs
 			if($previous_log && (date('U', strtotime($previous_log->time) - date('U', strtotime($log->time)))) < CK_LOG_TIME_IGNORE) {
-				# If key parameters are the same, assume user corrected his actions; no need to log twice
+				# If key parameters are the same, assume user corrected his actions; no need to show twice
 				# Note: users can override each check (besides the logger), as long as they pass the 'ignore_cmp' argument when registering
 				# the logger (as a string, or array of strings, which correspond(s) to the class property to be ignored)
 				if(
