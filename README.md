@@ -81,7 +81,5 @@ Feedback and Support
 -----------------------
 
 Comments are welcome. You can contact me directly via tbuteler@gmail.com.
-
-If you think you've found a bug, or you feel like you can make this plugin better, go to [GitHub](https://github.com/tbuteler/ck_activity_logs).
-
-Found this helpful? Did it save you precious programming time? Please consider making a [donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5H36WT4G7XBKQ).
+If you think you've found a bug, or you want to make this plugin better, go to [GitHub](https://github.com/tbuteler/ck_activity_logs).
+Did you find this helpful? Did it save you precious programming time? Please consider [donating](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5H36WT4G7XBKQ).

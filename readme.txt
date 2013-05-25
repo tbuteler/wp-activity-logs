@@ -21,9 +21,9 @@ The Activity Logs plugin keeps track of post, pages, custom post types and comme
 
 == Installation ==
 
-1. Unpackage contents to wp-content/plugins/ck_activity_logs
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. That's it! The plugin will configure itself on first run.
+1. Unpackage contents to your wp-content/plugins/ directory;
+2. Activate the plugin through the 'Plugins' menu in WordPress;
+3. That's it! The plugin will install required tables and configure itself on first run.
 
 == Frequently Asked Questions ==
 
@@ -55,7 +55,7 @@ Yes. There are many filters and actions to hook into, but the default loggers ta
 	cookspin_register_logger(
 		$name,		// A slug-like name for this logger, shorter than 255 characters
 		$category,	// A slug-like name for the logger's category. For the default list, see below
-		$args			// See below
+		$args		// See below
 	);
 
 Here are the default categories (and slugs) for loggers. These are meant to mimick the default sections of the WordPress admin menu. Your custom logger can go into any of these, and you can create your own categories as well (though you will have to specify labels and CSS / icons via filters):
@@ -96,7 +96,5 @@ Initial public release.
 == Feedback and Support ==
 
 Comments are welcome. You can contact me directly via tbuteler@gmail.com.
-
-If you think you've found a bug, or you feel like you can make this plugin better, go to [GitHub](https://github.com/tbuteler/ck_activity_logs).
-
-Found this helpful? Did it save you precious programming time? Please consider making a [donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5H36WT4G7XBKQ).
+If you think you've found a bug, or you want to make this plugin better, go to [GitHub](https://github.com/tbuteler/ck_activity_logs).
+Did you find this helpful? Did it save you precious programming time? Please consider [donating](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5H36WT4G7XBKQ).
