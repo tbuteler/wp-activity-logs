@@ -88,6 +88,11 @@ The third and final argument of the function is actually an array of arguments. 
 = 1.1 =
 * Initial public release.
 
+== Upgrade Notice ==
+
+= 1.1 =
+Initial public release.
+
 == Feedback and Support ==
 
 Comments are welcome. You can contact me directly via tbuteler@gmail.com.
